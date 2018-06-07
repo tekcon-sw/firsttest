@@ -1,17 +1,10 @@
 version: '2'
 services:
-  frontend:
-    build: ./frontend
+  webserver:
+    build: ./webserver
     expose:
       - "80"
-  proxy:
-    build: ./haproxy
+  hello:
+    build: ./hello
     depends_on:
-      - frontend
-      - data
-    ports:
-      - "80:80"
-  data:
-    build: ./data
-    expose:
-      - "8080"
+      - webserver
