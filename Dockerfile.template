@@ -1,1 +1,22 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-python
 
+#switch on systemd init system in container
+ENV INITSYSTEM on
+
+# use apt-get if you need to install dependencies,
+# for instance if you need ALSA sound utils, just uncomment the lines below.
+RUN apt-get update && apt-get install -yq \
+    alsa-utils python && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Defines our working directory in container
+WORKDIR /usr/src/app
+
+# Copies the package.json first for better cache on later pushes
+COPY hello.py hello.py
+
+# This will copy all files in our root to the working  directory in the container
+COPY . ./
+
+# Start script
+CMD ["python", "hello.py"]
