@@ -6,7 +6,7 @@ ENV INITSYSTEM on
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.
 RUN apt-get update && apt-get install -yq \
-    alsa-utils python && \
+    alsa-utils python \
     && apt-get autoremove -qqy \
     && apt-get autoclean -y \
     apt-get clean && rm -rf /var/lib/apt/lists/*
