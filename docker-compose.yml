@@ -3,6 +3,8 @@ services:
   webserver:
     build: ./webserver
     expose:
+      - "80"
+    ports:
       - "80:80"
   hello:
     build: ./hello
