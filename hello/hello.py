@@ -2,7 +2,7 @@
 import time
 
 print 'Hello World!!'
-print $USERNAME
+print os.environ.get('USERNAME')
 
 a = 0
 while a < 1000:
