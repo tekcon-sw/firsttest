@@ -3,7 +3,7 @@ import time
 import os
 
 print 'Hello World!!'
-print(os.environ('USERNAME'))
+# print(os.environ('USERNAME'))
 
 a = 0
 while a < 1000:
