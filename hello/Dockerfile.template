@@ -13,8 +13,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libgconf2-4 \
     libnss3 \
     libasound2 \
-    matchbox && \
-    alsa-utils \
+    matchbox \
     python \
     && apt-get autoremove -qqy \
     && apt-get autoclean -y \
