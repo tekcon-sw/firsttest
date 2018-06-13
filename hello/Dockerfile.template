@@ -1,11 +1,19 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-python
-
+##FROM resin/%%RESIN_MACHINE_NAME%%-python
+FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
 #switch on systemd init system in container
-#ENV INITSYSTEM on
+ENV INITSYSTEM on
 
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.
-RUN apt-get update && apt-get install -yq \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    xserver-xorg-core \
+    xorg \
+    libgtk2.0-0 \
+    libnotify4 \
+    libgconf2-4 \
+    libnss3 \
+    libasound2 \
+    matchbox && \
     alsa-utils \
     python \
     && apt-get autoremove -qqy \
@@ -16,10 +24,15 @@ RUN apt-get update && apt-get install -yq \
 WORKDIR /usr/src/app
 
 # Copies the package.json first for better cache on later pushes
-COPY hello.py hello.py
+## COPY hello.py hello.py
+RUN mkdir -p /usr/src/app && ln -s /usr/src/app /app
+COPY package.json /usr/src/app/package.json
+RUN JOBS=MAX npm install --unsafe-perm
 
 # This will copy all files in our root to the working  directory in the container
-COPY . ./
+## COPY . ./
+COPY . /usr/src/app
 
 # Start script
-CMD ["python", "hello.py"]
+## CMD ["python", "hello.py"]
+CMD ["xinit", "/usr/src/app/launch_app.sh", "--kiosk", "--", "-nocursor"]
