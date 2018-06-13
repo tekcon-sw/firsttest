@@ -1,7 +1,7 @@
 ##FROM resin/%%RESIN_MACHINE_NAME%%-python
 FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
 #switch on systemd init system in container
-ENV INITSYSTEM on
+##ENV INITSYSTEM on
 
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.
